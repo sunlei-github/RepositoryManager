@@ -98,14 +98,15 @@ namespace RepositoryManager.Web.Host.Startup
                 });
                 options.DocInclusionPredicate((docName, description) => true);
 
+                //swagger 需要Jwt登陆验证
                 // Define the BearerAuth scheme that's in use
-                options.AddSecurityDefinition("bearerAuth", new OpenApiSecurityScheme()
-                {
-                    Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
-                    Name = "Authorization",
-                    In = ParameterLocation.Header,
-                    Type = SecuritySchemeType.ApiKey
-                });
+                //options.AddSecurityDefinition("bearerAuth", new OpenApiSecurityScheme()
+                //{
+                //    Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+                //    Name = "Authorization",
+                //    In = ParameterLocation.Header,
+                //    Type = SecuritySchemeType.ApiKey
+                //});
             });
 
             // Configure Abp and Dependency Injection
