@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RepositoryManager.EntityFrameworkCore;
 
 namespace RepositoryManager.Migrations
 {
     [DbContext(typeof(RepositoryManagerDbContext))]
-    partial class RepositoryManagerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210102050015_AddAnyBusinessTables")]
+    partial class AddAnyBusinessTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -27,8 +27,4 @@
   <ItemGroup>
     <ProjectReference Include="..\RepositoryManager.Core\RepositoryManager.Core.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-    <Folder Include="MigrationScripts\" />
-  </ItemGroup>
 </Project>
