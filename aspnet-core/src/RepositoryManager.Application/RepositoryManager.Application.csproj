@@ -13,4 +13,9 @@
   <ItemGroup>
     <ProjectReference Include="..\RepositoryManager.Core\RepositoryManager.Core.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Business\Customer\" />
+    <Folder Include="Business\Supplier\" />
+    <Folder Include="Business\Warehouse\" />
+  </ItemGroup>
 </Project>
