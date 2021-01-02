@@ -47,5 +47,23 @@ namespace RepositoryManager.EntityFrameworkCore
         public DbSet<DbCustomer> DbCustomers { set; get; }
 
         #endregion
+
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    //    modelBuilder.Entity<DbWarehouseProduct>().HasOne(c => c.DbWarehouseProductType)
+        //    //        .WithOne().HasForeignKey<DbWarehouseProduct>(c => c.ProductTypeId);
+
+        //    //多对多关系 需要中间表
+        //    //modelBuilder.Entity<DbWarehouseProduct>().HasOne(c => c.DbWarehouse)
+        //    //    .WithOne().HasForeignKey<DbWarehouseProduct>(c => c.WarehouseId);
+
+        //    //modelBuilder.Entity<DbWarehouse>().HasIndex(c => c.WarehouseName);
+        //    //modelBuilder.Entity<DbWarehouseIntoProduct>().HasIndex(c => c.CreationTime);
+        //    //modelBuilder.Entity<DbWarehouseOutProduct>().HasIndex(c => c.CreationTime);
+        //    //modelBuilder.Entity<DbWarehouseProduct>().HasIndex(c => c.Name);
+        //    //modelBuilder.Entity<DbWarehousePurchaseProduct>().HasIndex(c => c.CreationTime);
+        //    //modelBuilder.Entity<DbWarehouseRefunProduct>().HasIndex(c => c.CreationTime);
+        //}
+
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Abp.Application.Services;
 using Abp.Domain.Repositories;
+using Abp.UI;
 using Microsoft.AspNetCore.Mvc;
 using RepositoryManager.Business.Warehouse.Dto;
 using RepositoryManager.Business.Warehouse.IAppService;
@@ -41,8 +42,12 @@ namespace RepositoryManager.Business.Warehouse.AppService
         public void EditProduct(EditWarehouseProductInput input)
         {
             var proEntity = _warehouseProductRepository.FirstOrDefault(c => c.Id == input.Id);
-            proEntity = ObjectMapper.Map<DbWarehouseProduct>(input);
+            if (proEntity == null)
+            {
+                throw new UserFriendlyException($"找不到对应的数据{input.Id}");
+            }
 
+            proEntity = ObjectMapper.Map<DbWarehouseProduct>(input);
             _warehouseProductRepository.Update(proEntity);
         }
     }

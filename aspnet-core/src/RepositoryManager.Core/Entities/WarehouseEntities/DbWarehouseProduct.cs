@@ -18,6 +18,12 @@ namespace RepositoryManager.Entities.WarehouseEntities
         public int ProductType { set; get; }
 
         /// <summary>
+        /// 产品类型
+        /// </summary>
+        [NotMapped]
+        public DbWarehouseProductType DbWarehouseProductType { set; get; }
+
+        /// <summary>
         /// 仓库Id
         /// </summary>
         public int WarehouseId { set; get; }
