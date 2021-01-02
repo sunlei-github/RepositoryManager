@@ -9,7 +9,7 @@ namespace RepositoryManager.Entities.WarehouseEntities
     /// <summary>
     /// 仓库表
     /// </summary>
-    [Table("WarehouseTable")]
+    [Table("Warehouse")]
     public class DbWarehouse : FullAuditedEntity
     {
         /// <summary>

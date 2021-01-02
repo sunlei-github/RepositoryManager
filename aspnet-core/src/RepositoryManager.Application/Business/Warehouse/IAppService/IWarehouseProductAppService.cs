@@ -6,6 +6,9 @@ using System.Text;
 
 namespace RepositoryManager.Business.Warehouse.IAppService
 {
+    /// <summary>
+    /// 产品服务
+    /// </summary>
     public interface IWarehouseProductAppService : IApplicationService
     {
         /// <summary>
