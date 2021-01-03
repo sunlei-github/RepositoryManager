@@ -35,6 +35,11 @@ namespace RepositoryManager.Business.Warehouse.IAppService
         /// <param name="input"></param>
         SearchWarehouseOutput SearchWarehouse(SearchWarehouseInput input);
 
-
+        /// <summary>
+        /// 仓库信息的分页查询
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        SearchWarehousesOutput SearchWarehouses(SearchWarehousesInput input);
     }
 }

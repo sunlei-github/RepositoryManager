@@ -47,7 +47,7 @@ namespace RepositoryManager.Business.Warehouse.AppService
                 throw new UserFriendlyException($"找不到对应的数据{input.Id}");
             }
 
-            proEntity = ObjectMapper.Map<DbWarehouseProduct>(input);
+            ObjectMapper.Map(input, proEntity);
             _warehouseProductRepository.Update(proEntity);
         }
     }

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace RepositoryManager.Business.Warehouse.Dto
 {
-    [AutoMapTo(typeof(DbWarehouse))]
+    [AutoMap(typeof(DbWarehouse))]
     public class WarehouseDto: EntityDto
     {
         /// <summary>
@@ -48,6 +48,28 @@ namespace RepositoryManager.Business.Warehouse.Dto
     /// </summary>
     public class SearchWarehouseOutput : WarehouseDto
     { }
+
+    /// <summary>
+    /// 分页查询的输入  PagedAndSortedResultRequestDto 可排序
+    /// </summary>
+    public class SearchWarehousesInput : PagedAndSortedResultRequestDto
+    {
+        /// <summary>
+        /// 仓库名称
+        /// </summary>
+        public string WarehouseName { set; get; }
+
+        /// <summary>
+        /// 仓库地址
+        /// </summary>
+        public string WarehouseAddress { set; get; }
+    }
+
+    /// <summary>
+    /// 分页返回的Dto
+    /// </summary>
+    public class SearchWarehousesOutput : PagedResultDto<WarehouseDto>
+    { }    
 
     /// <summary>
     /// 创建仓库的Dto

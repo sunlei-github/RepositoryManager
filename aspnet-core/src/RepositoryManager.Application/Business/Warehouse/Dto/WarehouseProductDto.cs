@@ -10,7 +10,7 @@ namespace RepositoryManager.Business.Warehouse.Dto
     /// <summary>
     /// 产品Dto
     /// </summary>
-    [AutoMapTo(typeof(DbWarehouseProduct))]
+    [AutoMap(typeof(DbWarehouseProduct))]
     public class WarehouseProductDto : EntityDto
     {
         /// <summary>

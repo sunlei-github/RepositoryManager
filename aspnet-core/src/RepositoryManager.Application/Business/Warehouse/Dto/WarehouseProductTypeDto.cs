@@ -7,7 +7,7 @@ using System.Text;
 
 namespace RepositoryManager.Business.Warehouse.Dto
 {
-    [AutoMapTo(typeof(DbWarehouseProductType))]
+    [AutoMap(typeof(DbWarehouseProductType))]
     public class WarehouseProductTypeDto : EntityDto
     {
         /// <summary>
