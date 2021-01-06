@@ -6,7 +6,9 @@ using RepositoryManager.Business.Warehouse.IAppService;
 using RepositoryManager.Entities.WarehouseEntities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace RepositoryManager.Business.Warehouse.AppService
 {
@@ -23,14 +25,14 @@ namespace RepositoryManager.Business.Warehouse.AppService
             _warehouseProductTypeRepository = warehouseProductTypeRepository;
         }
 
-        public void CreateProductType(CreateWarehouseProductType input)
+        public void CreateProductType(CreateWarehouseProductTypeInput input)
         {
             var proTypeEntity = ObjectMapper.Map<DbWarehouseProductType>(input);
 
             _warehouseProductTypeRepository.Insert(proTypeEntity);
         }
 
-        public void DeleteProductType(DeleteWarehouseProductType input)
+        public void DeleteProductType(DeleteWarehouseProductTypeInput input)
         {
             var proTypeEntity = _warehouseProductTypeRepository.FirstOrDefault(c => c.Id == input.Id);
             if (proTypeEntity == null)
@@ -48,7 +50,7 @@ namespace RepositoryManager.Business.Warehouse.AppService
             _warehouseProductTypeRepository.Delete(c => c.Id == input.Id);
         }
 
-        public void EditProductType(EditWarehouseProductType input)
+        public void EditProductType(EditWarehouseProductTypeInput input)
         {
             var proTypeEntity = _warehouseProductTypeRepository.Get(input.Id);
             if (proTypeEntity == null)
@@ -58,6 +60,43 @@ namespace RepositoryManager.Business.Warehouse.AppService
 
             ObjectMapper.Map(input, proTypeEntity);
             _warehouseProductTypeRepository.Update(proTypeEntity);
+        }
+
+        public async Task<WarehouseProductTypesOutput> GetProducetTypes()
+        {
+            var proTypes = (await _warehouseProductTypeRepository.GetAllListAsync());
+            var topProTypeEntities = proTypes.Where(c => !c.ParentId.HasValue);
+            var sonProTypeEntities = proTypes.Where(c => c.ParentId.HasValue);
+
+            WarehouseProductTypesOutput output = new WarehouseProductTypesOutput();
+            output.WarehouseProductTypes = new List<WarehouseProductTypesDto>();
+
+            foreach (var topProType in topProTypeEntities)
+            {
+                var proTypeDto = ObjectMapper.Map<WarehouseProductTypesDto>(topProType);
+                GetAllChildrenProducetTypes(proTypeDto, sonProTypeEntities);
+
+                output.WarehouseProductTypes.Add(proTypeDto);
+            }
+
+            return output;
+        }
+
+        /// <summary>
+        ///  获取父级对应的子级的产品类型
+        /// </summary>
+        /// <param name="parentProductType"></param>
+        /// <param name="sonProductTypes"></param>
+        /// <returns></returns>
+        private  void GetAllChildrenProducetTypes(WarehouseProductTypesDto parentProductType,IEnumerable<DbWarehouseProductType> sonProductTypes)
+        {
+            parentProductType.WarehouseProductTypeDtos = ObjectMapper.Map<List<WarehouseProductTypesDto>>(sonProductTypes.Where(c => c.ParentId == parentProductType.Id));
+
+            foreach (var productType in parentProductType.WarehouseProductTypeDtos)
+            {
+                productType.WarehouseProductTypeDtos = new List<WarehouseProductTypesDto>();
+                GetAllChildrenProducetTypes(productType, sonProductTypes);
+            }
         }
     }
 }

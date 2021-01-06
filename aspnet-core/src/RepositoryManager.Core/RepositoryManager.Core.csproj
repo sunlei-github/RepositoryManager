@@ -15,13 +15,16 @@
     <EmbeddedResource Include="Localization\SourceFiles\*.xml" Exclude="bin\**;obj\**;**\*.xproj;packages\**;@(EmbeddedResource)" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Remove="Business\**" />
+    <EmbeddedResource Remove="Business\**" />
+    <None Remove="Business\**" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Abp.AutoMapper" Version="5.13.0" />
     <PackageReference Include="Abp.ZeroCore.EntityFrameworkCore" Version="5.13.0" />
     <PackageReference Include="Castle.Windsor.MsDependencyInjection" Version="3.3.1" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Business\Customer\" />
-    <Folder Include="Business\Supplier\" />
-    <Folder Include="Business\Warehouse\" />
+    <Folder Include="Entities\TicketEntities\" />
   </ItemGroup>
 </Project>
