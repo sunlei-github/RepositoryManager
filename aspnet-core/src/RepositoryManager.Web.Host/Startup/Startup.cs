@@ -18,6 +18,7 @@ using Abp.Dependency;
 using Abp.Json;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
+using RepositoryManager.Authentication.JwtBearer;
 
 namespace RepositoryManager.Web.Host.Startup
 {
@@ -126,9 +127,10 @@ namespace RepositoryManager.Web.Host.Startup
 
             app.UseStaticFiles();
 
-            app.UseRouting();
-
             app.UseAuthentication();
+            app.UseRouting();
+            app.UseAuthorization();
+
 
             app.UseAbpRequestLocalization();
 

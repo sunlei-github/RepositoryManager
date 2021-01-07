@@ -6,6 +6,7 @@ using Abp.IdentityFramework;
 using Abp.Runtime.Session;
 using RepositoryManager.Authorization.Users;
 using RepositoryManager.MultiTenancy;
+using Abp.Runtime.Caching;
 
 namespace RepositoryManager
 {
@@ -18,6 +19,8 @@ namespace RepositoryManager
 
         public UserManager UserManager { get; set; }
 
+        public ICacheManager CacheManager { set; get; }
+
         protected RepositoryManagerAppServiceBase()
         {
             LocalizationSourceName = RepositoryManagerConsts.LocalizationSourceName;
@@ -26,6 +29,7 @@ namespace RepositoryManager
         protected virtual async Task<User> GetCurrentUserAsync()
         {
             var user = await UserManager.FindByIdAsync(AbpSession.GetUserId().ToString());
+
             if (user == null)
             {
                 throw new Exception("There is no current user!");

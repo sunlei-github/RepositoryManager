@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace RepositoryManager.Business.Warehouse.AppService
 {
-    public class WarehouseProductTypeAppService : ApplicationService, IWarehouseProductTypeAppService
+    public class WarehouseProductTypeAppService : RepositoryManagerAppServiceBase, IWarehouseProductTypeAppService
     {
 
         private readonly IRepository<DbWarehouseProductType> _warehouseProductTypeRepository;

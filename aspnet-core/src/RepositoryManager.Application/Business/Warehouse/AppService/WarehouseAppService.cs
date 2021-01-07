@@ -12,7 +12,7 @@ using System.Text;
 
 namespace RepositoryManager.Business.Warehouse.AppService
 {
-    public class WarehouseAppService : ApplicationService, IWarehouseAppService
+    public class WarehouseAppService : RepositoryManagerAppServiceBase, IWarehouseAppService
     {
         private readonly IRepository<DbWarehouse> _warehouseRepository;
 

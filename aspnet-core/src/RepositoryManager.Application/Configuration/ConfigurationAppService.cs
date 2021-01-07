@@ -8,9 +8,9 @@ namespace RepositoryManager.Configuration
     [AbpAuthorize]
     public class ConfigurationAppService : RepositoryManagerAppServiceBase, IConfigurationAppService
     {
-        public async Task ChangeUiTheme(ChangeUiThemeInput input)
-        {
-            await SettingManager.ChangeSettingForUserAsync(AbpSession.ToUserIdentifier(), AppSettingNames.UiTheme, input.Theme);
-        }
+        //public async Task ChangeUiTheme(ChangeUiThemeInput input)
+        //{
+        //    await SettingManager.ChangeSettingForUserAsync(AbpSession.ToUserIdentifier(), AppSettingNames.UiTheme, input.Theme);
+        //}
     }
 }

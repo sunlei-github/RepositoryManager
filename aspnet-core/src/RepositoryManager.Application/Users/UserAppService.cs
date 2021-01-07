@@ -24,7 +24,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace RepositoryManager.Users
 {
-    //[AbpAuthorize(PermissionNames.Pages_Users)]
+    //[AbpAuthorize]
     public class UserAppService : AsyncCrudAppService<User, UserDto, long, PagedUserResultRequestDto, CreateUserDto, UserDto>, IUserAppService
     {
         private readonly UserManager _userManager;
@@ -52,16 +52,22 @@ namespace RepositoryManager.Users
             _logInManager = logInManager;
         }
 
+        /// <summary>
+        /// 创建用户
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public override async Task<UserDto> CreateAsync(CreateUserDto input)
         {
             CheckCreatePermission();
 
             var user = ObjectMapper.Map<User>(input);
 
-            user.TenantId = AbpSession.TenantId;
+            //user.TenantId = AbpSession.TenantId;
+
             user.IsEmailConfirmed = true;
 
-            await _userManager.InitializeOptionsAsync(AbpSession.TenantId);
+            //await _userManager.InitializeOptionsAsync(AbpSession.TenantId);
 
             CheckErrors(await _userManager.CreateAsync(user, input.Password));
 
@@ -75,6 +81,11 @@ namespace RepositoryManager.Users
             return MapToEntityDto(user);
         }
 
+        /// <summary>
+        /// 更新用户
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public override async Task<UserDto> UpdateAsync(UserDto input)
         {
             CheckUpdatePermission();
@@ -93,26 +104,40 @@ namespace RepositoryManager.Users
             return await GetAsync(input);
         }
 
+        /// <summary>
+        /// 删除用户
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public override async Task DeleteAsync(EntityDto<long> input)
         {
             var user = await _userManager.GetUserByIdAsync(input.Id);
             await _userManager.DeleteAsync(user);
         }
 
+        /// <summary>
+        /// 获取角色
+        /// </summary>
+        /// <returns></returns>
         public async Task<ListResultDto<RoleDto>> GetRoles()
         {
             var roles = await _roleRepository.GetAllListAsync();
             return new ListResultDto<RoleDto>(ObjectMapper.Map<List<RoleDto>>(roles));
         }
 
-        public async Task ChangeLanguage(ChangeUserLanguageDto input)
-        {
-            await SettingManager.ChangeSettingForUserAsync(
-                AbpSession.ToUserIdentifier(),
-                LocalizationSettingNames.DefaultLanguage,
-                input.LanguageName
-            );
-        }
+        /// <summary>
+        /// 改变项目 语言 暂时不需要
+        /// </summary>
+        /// <param name="createInput"></param>
+        /// <returns></returns>
+        //public async Task ChangeLanguage(ChangeUserLanguageDto input)
+        //{
+        //    await SettingManager.ChangeSettingForUserAsync(
+        //        AbpSession.ToUserIdentifier(),
+        //        LocalizationSettingNames.DefaultLanguage,
+        //        input.LanguageName
+        //    );
+        //}
 
         protected override User MapToEntity(CreateUserDto createInput)
         {
@@ -207,11 +232,13 @@ namespace RepositoryManager.Users
             {
                 return false;
             }
-            var roles = await _userManager.GetRolesAsync(currentUser);
-            if (!roles.Contains(StaticRoleNames.Tenants.Admin))
-            {
-                throw new UserFriendlyException("Only administrators may reset passwords.");
-            }
+            
+            //去掉租户部分
+            //var roles = await _userManager.GetRolesAsync(currentUser);
+            //if (!roles.Contains(StaticRoleNames.Tenants.Admin))
+            //{
+            //    throw new UserFriendlyException("Only administrators may reset passwords.");
+            //}
 
             var user = await _userManager.GetUserByIdAsync(input.UserId);
             if (user != null)

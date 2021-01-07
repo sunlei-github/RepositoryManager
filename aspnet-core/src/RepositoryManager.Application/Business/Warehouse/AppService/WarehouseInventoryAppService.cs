@@ -11,7 +11,7 @@ using System.Text;
 
 namespace RepositoryManager.Business.Warehouse.AppService
 {
-    public class WarehouseInventoryAppService : ApplicationService, IWarehouseInventoryAppService
+    public class WarehouseInventoryAppService : RepositoryManagerAppServiceBase, IWarehouseInventoryAppService
     {
 
         public readonly IRepository<DbWarehouseInventory> _warehouseInventoryRepository;

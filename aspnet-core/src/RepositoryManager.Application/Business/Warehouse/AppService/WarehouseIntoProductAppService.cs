@@ -11,7 +11,7 @@ using static RepositoryManager.Business.Warehouse.Dto.WarehouseIntoProductDto;
 
 namespace RepositoryManager.Business.Warehouse.AppService
 {
-    public class WarehouseIntoProductAppService : ApplicationService, IWarehouseIntoProductAppService
+    public class WarehouseIntoProductAppService : RepositoryManagerAppServiceBase, IWarehouseIntoProductAppService
     {
         private readonly IRepository<DbWarehouseIntoProduct> _warehouseIntoProductRepository = null;
 

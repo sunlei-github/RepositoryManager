@@ -11,6 +11,7 @@ using Abp.Domain.Uow;
 using Abp.Organizations;
 using Abp.Runtime.Caching;
 using RepositoryManager.Authorization.Roles;
+using System.Threading.Tasks;
 
 namespace RepositoryManager.Authorization.Users
 {
@@ -53,6 +54,22 @@ namespace RepositoryManager.Authorization.Users
                 organizationUnitSettings, 
                 settingManager)
         {
+        }
+
+        /// <summary>
+        /// 获取的登陆用户的角色 和对应的权限
+        /// </summary>
+        /// <returns></returns>
+        protected virtual List<Role> GetCurrentUserRoles()
+        {
+            var currentUserId = AbpSession.UserId;
+            if (currentUserId == null)
+            {
+                throw new ArgumentNullException("用户未登录!");
+            }
+
+            var  roleQuery=
+           var query=from  
         }
     }
 }

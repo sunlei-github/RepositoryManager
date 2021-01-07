@@ -14,7 +14,7 @@ namespace RepositoryManager.Business.Warehouse.AppService
     /// <summary>
     /// 产品服务
     /// </summary>
-    public class WarehouseProductAppService : ApplicationService, IWarehouseProductAppService
+    public class WarehouseProductAppService : RepositoryManagerAppServiceBase, IWarehouseProductAppService
     {
         private readonly IRepository<DbWarehouseProduct> _warehouseProductRepository;
 

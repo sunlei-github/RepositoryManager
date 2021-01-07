@@ -63,7 +63,7 @@ namespace RepositoryManager.Controllers
             return new AuthenticateResultModel
             {
                 AccessToken = accessToken,
-                EncryptedAccessToken = GetEncryptedAccessToken(accessToken),
+                //EncryptedAccessToken = GetEncryptedAccessToken(accessToken),
                 ExpireInSeconds = (int)_configuration.Expiration.TotalSeconds,
                 UserId = loginResult.User.Id
             };

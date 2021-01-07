@@ -5,6 +5,6 @@ namespace RepositoryManager.Configuration
 {
     public interface IConfigurationAppService
     {
-        Task ChangeUiTheme(ChangeUiThemeInput input);
+        //Task ChangeUiTheme(ChangeUiThemeInput input);
     }
 }

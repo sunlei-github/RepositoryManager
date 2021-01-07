@@ -10,7 +10,8 @@ namespace RepositoryManager.Users
     {
         Task<ListResultDto<RoleDto>> GetRoles();
 
-        Task ChangeLanguage(ChangeUserLanguageDto input);
+        //改变语言   暂时不需要
+        //Task ChangeLanguage(ChangeUserLanguageDto input);
 
         Task<bool> ChangePassword(ChangePasswordDto input);
     }
