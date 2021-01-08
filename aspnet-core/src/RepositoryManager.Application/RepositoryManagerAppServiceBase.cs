@@ -12,14 +12,13 @@ namespace RepositoryManager
 {
     /// <summary>
     /// Derive your application services from this class.
+    /// 业务程序类的基类 
     /// </summary>
     public abstract class RepositoryManagerAppServiceBase : ApplicationService
     {
         public TenantManager TenantManager { get; set; }
 
         public UserManager UserManager { get; set; }
-
-        public ICacheManager CacheManager { set; get; }
 
         protected RepositoryManagerAppServiceBase()
         {
@@ -36,11 +35,6 @@ namespace RepositoryManager
             }
 
             return user;
-        }
-
-        protected virtual Task<Tenant> GetCurrentTenantAsync()
-        {
-            return TenantManager.GetByIdAsync(AbpSession.GetTenantId());
         }
 
         protected virtual void CheckErrors(IdentityResult identityResult)

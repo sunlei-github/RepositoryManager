@@ -20,6 +20,7 @@ namespace RepositoryManager
             Configuration.Auditing.IsEnabledForAnonymousUsers = true;
 
             // Declare entity types
+            //定义使用的实体的类型
             Configuration.Modules.Zero().EntityTypes.Tenant = typeof(Tenant);
             Configuration.Modules.Zero().EntityTypes.Role = typeof(Role);
             Configuration.Modules.Zero().EntityTypes.User = typeof(User);

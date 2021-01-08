@@ -10,10 +10,15 @@ using RepositoryManager.Cache.Dto;
 using RepositoryManager.Authorization.Roles;
 using Abp.Runtime.Session;
 using Abp.ObjectMapping;
+using Abp.Domain.Services;
 
 namespace RepositoryManager.Cache
 {
-    public class CacheManager:ITransientDependency
+    /// <summary>
+    /// 使用DomainService定义一个域服务
+    /// 官方文档相关地址：https://aspnetboilerplate.com/Pages/Documents/Domain-Services
+    /// </summary>
+    public class CacheManager: DomainService
     {
         public ITypedCache<string, UserCacheDto> TypedCache { set; get; }
 
@@ -22,8 +27,6 @@ namespace RepositoryManager.Cache
         public RoleManager RoleManager { set; get; }
 
         public IAbpSession AbpSession { set; get; }
-
-        public IObjectMapper ObjectMapper { set; get; }
 
         /// <summary>
         /// 设置登陆用户的缓存

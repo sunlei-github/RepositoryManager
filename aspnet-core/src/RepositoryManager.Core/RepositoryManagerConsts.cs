@@ -6,6 +6,9 @@
 
         public const string ConnectionStringName = "Default";
 
-        public const bool MultiTenancyEnabled = true;
+        /// <summary>
+        /// 是否启用多租户 模式
+        /// </summary>
+        public const bool MultiTenancyEnabled = false;
     }
 }
