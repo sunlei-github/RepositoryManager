@@ -7,6 +7,8 @@ using Abp.Runtime.Session;
 using RepositoryManager.Authorization.Users;
 using RepositoryManager.MultiTenancy;
 using Abp.Runtime.Caching;
+using RepositoryManager.Cache;
+using RepositoryManager.Cache.Dto;
 
 namespace RepositoryManager
 {
@@ -20,21 +22,20 @@ namespace RepositoryManager
 
         public UserManager UserManager { get; set; }
 
+        public CurrentUserCacheManager CacheManager { set; get; }
+
         protected RepositoryManagerAppServiceBase()
         {
             LocalizationSourceName = RepositoryManagerConsts.LocalizationSourceName;
         }
 
-        protected virtual async Task<User> GetCurrentUserAsync()
+        /// <summary>
+        /// 从缓存中获取登陆用户的信息
+        /// </summary>
+        /// <returns></returns>
+        protected virtual UserCacheDto GetCurrentUserMsg()
         {
-            var user = await UserManager.FindByIdAsync(AbpSession.GetUserId().ToString());
-
-            if (user == null)
-            {
-                throw new Exception("There is no current user!");
-            }
-
-            return user;
+            return CacheManager.CheckSetCacheCurrentUserMsg();
         }
 
         protected virtual void CheckErrors(IdentityResult identityResult)

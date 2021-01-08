@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Abp.Runtime.Security;
+using RepositoryManager.Authentication;
 
 namespace RepositoryManager.Web.Host.Startup
 {
@@ -27,7 +28,7 @@ namespace RepositoryManager.Web.Host.Startup
                     {
                         // The signing key must match!
                         ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration["Authentication:JwtBearer:SecurityKey"])),
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(JwtSecurityKeyConst.JWT_SECURITY_KEY)),
 
                         // Validate the JWT Issuer (iss) claim
                         ValidateIssuer = true,

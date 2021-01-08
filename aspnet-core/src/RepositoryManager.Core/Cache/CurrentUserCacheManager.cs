@@ -18,26 +18,26 @@ namespace RepositoryManager.Cache
     /// 使用DomainService定义一个域服务
     /// 官方文档相关地址：https://aspnetboilerplate.com/Pages/Documents/Domain-Services
     /// </summary>
-    public class CacheManager: DomainService
+    public class CurrentUserCacheManager : DomainService
     {
         public ITypedCache<string, UserCacheDto> TypedCache { set; get; }
 
         public UserManager UserManager { set; get; }
-
-        public RoleManager RoleManager { set; get; }
 
         public IAbpSession AbpSession { set; get; }
 
         /// <summary>
         /// 设置登陆用户的缓存
         /// </summary>
-        protected void SetCurrentUserMessage()
+        public void SetCurrentUserMessage()
         {
             long currentUserId = AbpSession.GetUserId();
             string currentUserKey = GetCurrentUserCacheKey(currentUserId);
 
             var currentUser = UserManager.GetUserById(currentUserId);
             var currentUserDto = ObjectMapper.Map<UserCacheDto>(currentUser);
+            var currentUserRoles = UserManager.GetCurrentUserRoles();
+            currentUserDto.Roles = ObjectMapper.Map<List<RoleCacheDto>>(currentUserRoles);
 
             TypedCache.Set(currentUserKey, currentUserDto);
         }
@@ -46,7 +46,7 @@ namespace RepositoryManager.Cache
         /// 从缓存中获取登陆用户信息
         /// </summary>
         /// <returns></returns>
-        protected UserCacheDto GetCurrentUserMessage()
+        public UserCacheDto GetCurrentUserMessage()
         {
             string currentUserKey = GetCurrentUserCacheKey();
 
@@ -56,17 +56,33 @@ namespace RepositoryManager.Cache
         /// <summary>
         /// 清除当前登录的用户信息
         /// </summary>
-        protected void ClearCurrentUserMessage()
+        public void ClearCurrentUserMessage()
         {
             string currentUserKey = GetCurrentUserCacheKey();
             TypedCache.Remove(currentUserKey);
         }
 
         /// <summary>
+        /// 判断是否包含当前登录人信息的缓存
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public UserCacheDto CheckSetCacheCurrentUserMsg()
+        {
+            UserCacheDto userCacheDto = null;
+            if (!TypedCache.TryGetValue(GetCurrentUserCacheKey(), out userCacheDto))
+            {
+                SetCurrentUserMessage();
+            }
+
+            return userCacheDto;
+        }
+
+        /// <summary>
         /// 获取登陆用户缓存的Key
         /// </summary>
         /// <returns></returns>
-        protected string GetCurrentUserCacheKey()
+        public string GetCurrentUserCacheKey()
         {
             long currentUserId = AbpSession.GetUserId();
 

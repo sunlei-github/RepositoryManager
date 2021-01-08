@@ -8,10 +8,7 @@ namespace RepositoryManager.Users
 {
     public interface IUserAppService : IAsyncCrudAppService<UserDto, long, PagedUserResultRequestDto, CreateUserDto, UserDto>
     {
-        Task<ListResultDto<RoleDto>> GetRoles();
-
-        //改变语言   暂时不需要
-        //Task ChangeLanguage(ChangeUserLanguageDto input);
+        ListResultDto<RoleDto> GetRoles();
 
         Task<bool> ChangePassword(ChangePasswordDto input);
     }

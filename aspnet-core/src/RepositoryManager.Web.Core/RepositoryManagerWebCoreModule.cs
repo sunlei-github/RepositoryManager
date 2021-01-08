@@ -13,6 +13,7 @@ using RepositoryManager.Authentication.JwtBearer;
 using RepositoryManager.Configuration;
 using RepositoryManager.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
+using RepositoryManager.Authentication;
 
 namespace RepositoryManager
 {
@@ -50,12 +51,15 @@ namespace RepositoryManager
             ConfigureTokenAuth();
         }
 
+        /// <summary>
+        /// Jwt的配置 主要是负责 组装Jwt验证的参数
+        /// </summary>
         private void ConfigureTokenAuth()
         {
             IocManager.Register<TokenAuthConfiguration>();
             var tokenAuthConfig = IocManager.Resolve<TokenAuthConfiguration>();
 
-            tokenAuthConfig.SecurityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_appConfiguration["Authentication:JwtBearer:SecurityKey"]));
+            tokenAuthConfig.SecurityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(JwtSecurityKeyConst.JWT_SECURITY_KEY));
             tokenAuthConfig.Issuer = _appConfiguration["Authentication:JwtBearer:Issuer"];
             tokenAuthConfig.Audience = _appConfiguration["Authentication:JwtBearer:Audience"];
             tokenAuthConfig.SigningCredentials = new SigningCredentials(tokenAuthConfig.SecurityKey, SecurityAlgorithms.HmacSha256);

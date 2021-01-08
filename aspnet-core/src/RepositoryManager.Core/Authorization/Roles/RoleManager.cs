@@ -9,11 +9,15 @@ using Abp.Organizations;
 using Abp.Runtime.Caching;
 using Abp.Zero.Configuration;
 using RepositoryManager.Authorization.Users;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using System.Linq;
 
 namespace RepositoryManager.Authorization.Roles
 {
     public class RoleManager : AbpRoleManager<Role, User>
     {
+        private readonly IRepository<Role> _roleRepository = null;
+
         public RoleManager(
             RoleStore store,
             IEnumerable<IRoleValidator<Role>> roleValidators,
@@ -25,7 +29,8 @@ namespace RepositoryManager.Authorization.Roles
             IUnitOfWorkManager unitOfWorkManager,
             IRoleManagementConfig roleManagementConfig,
             IRepository<OrganizationUnit, long> organizationUnitRepository,
-            IRepository<OrganizationUnitRole, long> organizationUnitRoleRepository)
+            IRepository<OrganizationUnitRole, long> organizationUnitRoleRepository,
+            IRepository<Role> roleRepository)
             : base(
                   store,
                   roleValidators,
@@ -38,6 +43,16 @@ namespace RepositoryManager.Authorization.Roles
                 organizationUnitRepository,
                 organizationUnitRoleRepository)
         {
+            _roleRepository = roleRepository;
+        }
+
+        /// <summary>
+        /// 获取所有的角色
+        /// </summary>
+        /// <returns></returns>
+        public virtual IQueryable<Role> GetAllRoles()
+        {
+            return _roleRepository.GetAll();
         }
     }
 }

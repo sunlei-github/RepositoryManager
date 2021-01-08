@@ -116,28 +116,14 @@ namespace RepositoryManager.Users
         }
 
         /// <summary>
-        /// 获取角色
+        /// 获取所有角色
         /// </summary>
         /// <returns></returns>
-        public async Task<ListResultDto<RoleDto>> GetRoles()
+        public ListResultDto<RoleDto> GetRoles()
         {
-            var roles = await _roleRepository.GetAllListAsync();
+            var roles = _roleManager.GetAllRoles();
             return new ListResultDto<RoleDto>(ObjectMapper.Map<List<RoleDto>>(roles));
         }
-
-        /// <summary>
-        /// 改变项目 语言 暂时不需要
-        /// </summary>
-        /// <param name="createInput"></param>
-        /// <returns></returns>
-        //public async Task ChangeLanguage(ChangeUserLanguageDto input)
-        //{
-        //    await SettingManager.ChangeSettingForUserAsync(
-        //        AbpSession.ToUserIdentifier(),
-        //        LocalizationSettingNames.DefaultLanguage,
-        //        input.LanguageName
-        //    );
-        //}
 
         protected override User MapToEntity(CreateUserDto createInput)
         {

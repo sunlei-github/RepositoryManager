@@ -7,6 +7,9 @@ namespace RepositoryManager.Authorization.Users
 {
     public class User : AbpUser<User>
     {
+        /// <summary>
+        /// 默认密码
+        /// </summary>
         public const string DefaultPassword = "123qwe";
 
         public static string CreateRandomPassword()

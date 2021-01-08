@@ -12,11 +12,14 @@ using Abp.Organizations;
 using Abp.Runtime.Caching;
 using RepositoryManager.Authorization.Roles;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace RepositoryManager.Authorization.Users
 {
     public class UserManager : AbpUserManager<Role, User>
     {
+        private readonly RoleManager _roleManager = null;
+
         public UserManager(
             RoleManager roleManager,
             UserStore store, 
@@ -54,13 +57,14 @@ namespace RepositoryManager.Authorization.Users
                 organizationUnitSettings, 
                 settingManager)
         {
+            _roleManager = roleManager;
         }
 
         /// <summary>
         /// 获取的登陆用户的角色 和对应的权限
         /// </summary>
         /// <returns></returns>
-        protected virtual List<Role> GetCurrentUserRoles()
+        public virtual List<Role> GetCurrentUserRoles()
         {
             var currentUserId = AbpSession.UserId;
             if (currentUserId == null)
@@ -68,8 +72,13 @@ namespace RepositoryManager.Authorization.Users
                 throw new ArgumentNullException("用户未登录!");
             }
 
-            var  roleQuery=
-           var query=from  
+            var currrentUser = base.GetUserById(currentUserId.Value);
+
+            var roleQuery = from role in _roleManager.GetAllRoles()
+                            join userRole in currrentUser.Roles on role.Id equals userRole.RoleId
+                            select role;
+
+            return roleQuery.ToList();
         }
     }
 }
