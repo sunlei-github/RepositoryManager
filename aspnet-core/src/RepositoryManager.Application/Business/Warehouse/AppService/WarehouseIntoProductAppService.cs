@@ -13,16 +13,16 @@ namespace RepositoryManager.Business.Warehouse.AppService
 {
     public class WarehouseIntoProductAppService : RepositoryManagerAppServiceBase, IWarehouseIntoProductAppService
     {
-        private readonly IRepository<DbWarehouseIntoProduct> _warehouseIntoProductRepository = null;
+        private readonly IRepository<DbWarehouseIntoProductRecord> _warehouseIntoProductRepository = null;
 
-        public WarehouseIntoProductAppService(IRepository<DbWarehouseIntoProduct> warehouseIntoProductRepository)
+        public WarehouseIntoProductAppService(IRepository<DbWarehouseIntoProductRecord> warehouseIntoProductRepository)
         {
             _warehouseIntoProductRepository = warehouseIntoProductRepository;
         }
 
         public void CreateWarehouseIntoProduct(CreateWarehouseIntoProduct input)
         {
-            var IntoProEntity = ObjectMapper.Map<DbWarehouseIntoProduct>(input);
+            var IntoProEntity = ObjectMapper.Map<DbWarehouseIntoProductRecord>(input);
 
             _warehouseIntoProductRepository.Insert(IntoProEntity);
         }

@@ -24,7 +24,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace RepositoryManager.Users
 {
-    //[AbpAuthorize]
     public class UserAppService : AsyncCrudAppService<User, UserDto, long, PagedUserResultRequestDto, CreateUserDto, UserDto>, IUserAppService
     {
         private readonly UserManager _userManager;

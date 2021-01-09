@@ -7,7 +7,7 @@ using System.Text;
 
 namespace RepositoryManager.Business.Warehouse.Dto
 {
-    [AutoMap(typeof(DbWarehouseIntoProduct))]
+    [AutoMap(typeof(DbWarehouseIntoProductRecord))]
     public class WarehouseIntoProductDto : EntityDto
     {
         /// <summary>

@@ -12,7 +12,7 @@ namespace RepositoryManager.EntityFrameworkCore
     public class RepositoryManagerDbContext : AbpZeroDbContext<Tenant, Role, User, RepositoryManagerDbContext>
     {
         /* Define a DbSet for each entity of the application */
-        
+
         public RepositoryManagerDbContext(DbContextOptions<RepositoryManagerDbContext> options)
             : base(options)
         {
@@ -21,24 +21,23 @@ namespace RepositoryManager.EntityFrameworkCore
         #region 与仓库相关的表
         public DbSet<DbWarehouse> DbWarehouseTables { set; get; }
 
-        public DbSet<DbWarehouseIntoProduct> DbWarehouseIntoProducts { set; get; }
+        public DbSet<DbWarehouseIntoProductRecord> DbWarehouseIntoProducts { set; get; }
 
-        public DbSet<DbWarehouseInventory> DbWarehouseInventories { set; get; }
-
-        public DbSet<DbWarehouseOutProduct> DbWarehouseOutProducts { set; get; }
+        public DbSet<DbWarehouseOutProductRecord> DbWarehouseOutProducts { set; get; }
 
         public DbSet<DbWarehouseProduct> DbWarehouseProducts { set; get; }
 
         public DbSet<DbWarehouseProductType> DbWarehouseProductTypes { set; get; }
 
-        public DbSet<DbWarehousePurchaseProduct> DbWarehousePurchaseProducts { set; get; }
-
         public DbSet<DbWarehouseRefunProduct> DbWarehouseRefunProducts { set; get; }
+
         #endregion
 
         #region 供应商相关的表
 
         public DbSet<DbSupplier> DbSuppliers { set; get; }
+
+        public DbSet<DbSupplierSale> DbSupplierSales { set; get; }
 
         #endregion
 
@@ -50,14 +49,33 @@ namespace RepositoryManager.EntityFrameworkCore
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            #region 设置主键
+            //复合主键
+            modelBuilder.Entity<DbSupplierDbSupplierSale>().HasKey(c => new { c.DbSupplierId, c.DbSupplierSellId });
+            modelBuilder.Entity<DbWarehouseDbProduct>().HasKey(c => new { c.DbWarehouseId, c.DbWarehouseProductId });
+            #endregion
+
+            #region 表关系
+            modelBuilder.Entity<DbSupplierDbSupplierSale>().HasOne(c => c.DbSupplierSell)
+                .WithMany(c => c.DbSupplierDbSupplierSales).HasForeignKey(c => c.DbSupplierSellId);
+            modelBuilder.Entity<DbSupplierDbSupplierSale>().HasOne(c => c.DbSupplier)
+                .WithMany(c => c.DbSupplierDbSupplierSells).HasForeignKey(c => c.DbSupplierId);
+
+            modelBuilder.Entity<DbWarehouseDbProduct>().HasOne(c => c.DbWarehouse)
+                .WithMany(c => c.DbWarehouseDbProducts).HasForeignKey(c => c.DbWarehouseId);
+            modelBuilder.Entity<DbWarehouseDbProduct>().HasOne(c => c.DbWarehouseProduct)
+                .WithMany(c => c.DbWarehouseDbProducts).HasForeignKey(c => c.DbWarehouseProductId);
+
+            modelBuilder.Entity<DbWarehouseProduct>().HasOne(c => c.DbWarehouseProductType)
+                .WithOne().HasForeignKey<DbWarehouseProduct>(c => c.ProductType);
+            #endregion
 
             #region 设置索引
             modelBuilder.Entity<DbWarehouse>().HasIndex(c => c.WarehouseName);
-            modelBuilder.Entity<DbWarehouseIntoProduct>().HasIndex(c => c.CreationTime);
-            modelBuilder.Entity<DbWarehouseOutProduct>().HasIndex(c => c.CreationTime);
+            modelBuilder.Entity<DbWarehouseIntoProductRecord>().HasIndex(c => c.CreationTime);
+            modelBuilder.Entity<DbWarehouseOutProductRecord>().HasIndex(c => c.CreationTime);
             modelBuilder.Entity<DbWarehouseProduct>().HasIndex(c => c.Name);
-            modelBuilder.Entity<DbWarehousePurchaseProduct>().HasIndex(c => c.CreationTime);
-            modelBuilder.Entity<DbWarehouseRefunProduct>().HasIndex(c => c.CreationTime); 
+            modelBuilder.Entity<DbWarehouseRefunProduct>().HasIndex(c => c.CreationTime);
             #endregion
 
             base.OnModelCreating(modelBuilder);

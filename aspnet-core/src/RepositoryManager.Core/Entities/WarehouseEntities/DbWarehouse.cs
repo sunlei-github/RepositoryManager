@@ -42,5 +42,9 @@ namespace RepositoryManager.Entities.WarehouseEntities
         [Column(TypeName = "varchar(100)")]
         public string Remarks { set; get; }
 
+        /// <summary>
+        /// 多对多中间表  关联货物表
+        /// </summary>
+        public ICollection<DbWarehouseDbProduct> DbWarehouseDbProducts { set; get; }
     }
 }

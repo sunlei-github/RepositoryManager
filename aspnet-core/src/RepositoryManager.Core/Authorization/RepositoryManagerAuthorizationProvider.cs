@@ -23,7 +23,6 @@ namespace RepositoryManager.Authorization
             //var parentPer = context.CreatePermission(PermissionNames.Pages_Users, L("Users"));
             //parentPer.CreateChildPermission("子权限",“子权限显示名称”);
 
-
             //context.CreatePermission(PermissionNames.Pages_Users, L("Users"));
             //context.CreatePermission(PermissionNames.Pages_Roles, L("Roles"));
             //context.CreatePermission(PermissionNames.Pages_Tenants, L("Tenants"), multiTenancySides: MultiTenancySides.Host);

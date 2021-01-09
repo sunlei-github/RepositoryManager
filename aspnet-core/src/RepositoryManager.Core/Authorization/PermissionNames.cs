@@ -2,12 +2,24 @@
 {
     public static class PermissionNames
     {
-        //public const string Pages_Tenants = "Pages.Tenants";
+        #region 出库权限
 
-        //public const string Pages_Users = "Pages.Users";
+        #endregion
 
-        //public const string Pages_Roles = "Pages.Roles";
+        #region 入库权限
 
-        public const string Test_Permisson = "Test_Permisson";
+        #endregion
+
+        #region 仓库货物管理权限
+
+        #endregion
+
+        #region 管理层权限
+
+        #endregion
+
+        #region 审核权限
+
+        #endregion
     }
 }

@@ -1,9 +1,12 @@
 ﻿using Abp.Domain.Entities.Auditing;
+using Newtonsoft.Json.Converters;
+using RepositoryManager.Common.Enum;
 using RepositoryManager.Entities.WarehouseEntities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace RepositoryManager.Entities.PurchaseEntities
 {
@@ -19,24 +22,32 @@ namespace RepositoryManager.Entities.PurchaseEntities
         public string SerialNumber { private set; get; } = new Guid().ToString().Replace("-", "");
 
         /// <summary>
-        /// 采购单产品的主键
+        /// 货物名称
+        /// </summary>
+        [Column(TypeName = "varchar(50)")]
+        public string ProducetName { set; get; }
+
+        /// <summary>
+        /// 采购数量
+        /// </summary>
+        public long PurchaseCount { set; get; }
+
+        /// <summary>
+        /// 审核结果
+        /// </summary>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public AuditResultEnum AuditResult { set; get; }
+
+        /// <summary>
+        /// 存放的仓库Id  用作外键 关联仓库
         /// </summary>
         public int DbWarehouseProductId { set; get; }
 
         /// <summary>
-        /// 采购单采购的产品
+        /// 存放的仓库实体
         /// </summary>
         public DbWarehouseProduct DbWarehouseProduct { set; get; }
 
-        /// <summary>
-        /// 采购产品入库的Id
-        /// </summary>
-        public int DbWarehouseId { set; get; }
-
-        /// <summary>
-        /// 采购产品入库的仓库
-        /// </summary>
-        public DbWarehouse DbWarehouse { set; get; }
 
     }
 }

@@ -13,22 +13,6 @@ namespace RepositoryManager.Entities.WarehouseEntities
     public class DbWarehouseProduct : FullAuditedEntity
     {
         /// <summary>
-        /// 产品类型
-        /// </summary>
-        public int ProductType { set; get; }
-
-        /// <summary>
-        /// 产品类型
-        /// </summary>
-        [NotMapped]
-        public DbWarehouseProductType DbWarehouseProductType { set; get; }
-
-        /// <summary>
-        /// 仓库Id
-        /// </summary>
-        public int WarehouseId { set; get; }
-
-        /// <summary>
         /// 产品数量
         /// </summary>
         public long Count { set; get; }
@@ -43,5 +27,21 @@ namespace RepositoryManager.Entities.WarehouseEntities
         /// </summary>
         [Column(TypeName = "varchar(50)")]
         public string Name { set; get; }
+
+        /// <summary>
+        /// 产品类型
+        /// </summary>
+        public int ProductType { set; get; }
+
+        /// <summary>
+        /// 产品类型
+        /// </summary>
+        [NotMapped]
+        public DbWarehouseProductType DbWarehouseProductType { set; get; }
+
+        /// <summary>
+        /// 多对多中间表  关联仓库
+        /// </summary>
+        public ICollection<DbWarehouseDbProduct> DbWarehouseDbProducts { set; get; }
     }
 }

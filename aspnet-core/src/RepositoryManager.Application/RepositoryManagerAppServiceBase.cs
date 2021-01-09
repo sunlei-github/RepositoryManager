@@ -38,6 +38,22 @@ namespace RepositoryManager
             return CacheManager.CheckSetCacheCurrentUserMsg();
         }
 
+        /// <summary>
+        /// 获取登陆用户
+        /// </summary>
+        /// <returns></returns>
+        protected virtual async Task<User> GetCurrentUserAsync()
+        {
+            var user = await UserManager.FindByIdAsync(AbpSession.GetUserId().ToString());
+
+            if (user == null)
+            {
+                throw new Exception("There is no current user!");
+            }
+
+            return user;
+        }
+
         protected virtual void CheckErrors(IdentityResult identityResult)
         {
             identityResult.CheckErrors(LocalizationManager);
