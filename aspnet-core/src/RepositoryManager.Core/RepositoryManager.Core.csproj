@@ -16,15 +16,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Business\**" />
+    <Compile Remove="Entities\TicketEntities\**" />
     <EmbeddedResource Remove="Business\**" />
+    <EmbeddedResource Remove="Entities\TicketEntities\**" />
     <None Remove="Business\**" />
+    <None Remove="Entities\TicketEntities\**" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Abp.AutoMapper" Version="5.13.0" />
     <PackageReference Include="Abp.ZeroCore.EntityFrameworkCore" Version="5.13.0" />
     <PackageReference Include="Castle.Windsor.MsDependencyInjection" Version="3.3.1" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Entities\TicketEntities\" />
   </ItemGroup>
 </Project>

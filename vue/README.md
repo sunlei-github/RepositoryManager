@@ -1,4 +1,4 @@
-# repositorymanager
+# repositroymanager
 
 ## Project setup
 ```

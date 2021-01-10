@@ -4,6 +4,7 @@ using Newtonsoft.Json.Converters;
 using RepositoryManager.Common.Enum;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -19,13 +20,13 @@ namespace RepositoryManager.Entities.WarehouseEntities
         /// <summary>
         /// 产品名称
         /// </summary>
-        [Column(TypeName = "varchar(50)")]
+        [Required]
         public string ProductName { set; get; }
 
         /// <summary>
         /// 仓库名称
         /// </summary>
-        [Column(TypeName = "varchar(30)")]
+        [Required]
         public string DbWareHouseName { set; get; }
 
         /// <summary>
